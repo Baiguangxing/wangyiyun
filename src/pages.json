@@ -5,8 +5,7 @@
 			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
 		}
 	},
-	"pages": [
-		{
+	"pages": [{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "首页"
@@ -42,14 +41,16 @@
 				"navigationBarTitleText": "登录页面"
 			}
 		}
-		
+
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
-		"app-plus":{"titleNView":false}
+		"app-plus": {
+			"titleNView": false
+		}
 	},
 	"tabBar": {
 		"color": "#b3b3b3",
@@ -66,17 +67,17 @@
 			"iconPath": "static/image/tab2.png",
 			"selectedIconPath": "static/image/tab2.png",
 			"text": "播客"
-		},{
+		}, {
 			"pagePath": "pages/my/my",
 			"iconPath": "static/image/tab3.png",
 			"selectedIconPath": "static/image/tab3.png",
 			"text": "我的"
-		},{
+		}, {
 			"pagePath": "pages/concern/concern",
 			"iconPath": "static/image/tab4.png",
 			"selectedIconPath": "static/image/tab4.png",
 			"text": "关注"
-		},{
+		}, {
 			"pagePath": "pages/gather/gather",
 			"iconPath": "static/image/tab5.png",
 			"selectedIconPath": "static/image/tab5.png",
