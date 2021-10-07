@@ -1,22 +1,9 @@
 <template>
   <view>
-    <view class="title">
-      <view class="icon">
-        <uni-icons type="refreshempty" size="25"></uni-icons>
-      </view>
-      <view class="txt">
-        <view class="item">{{ title }}</view>
-        <view>的专属歌单</view>
-      </view>
-    </view>
+    <view style="font-weight: bold">{{ title }}</view>
     <view>
       <view class="list">
-        <view
-          class="box"
-          v-for="(item, index) in list"
-          :key="index"
-          @click="btn(item)"
-        >
+        <view class="box" v-for="(item, index) in list" :key="index" @click="btn(item)">
           <view class="play" v-if="item.playCount >= 100000000">
             <view><image src="../../static/image/sj.png" /></view>
             <view>{{ Math.floor(item.playCount / 100000000) }}亿</view>
@@ -66,25 +53,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-  display: flex;
-  .icon {
-    margin-top: -6upx;
-  }
-  .txt {
-    font-weight: bold;
-    font-size: 36upx;
-    display: flex;
-    .item {
-      width: 350upx;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      -o-text-overflow: ellipsis;
-    }
-  }
+.iocn {
+  line-height: 56upx;
+  font-weight: 300;
 }
-
 .list {
   display: flex;
   flex-wrap: wrap;
@@ -122,13 +94,13 @@ export default {
       border-radius: 30upx;
       color: white;
       transform: scale(0.85);
-      image {
-        width: 28upx;
-        height: 28upx;
+      image{
+        width:28upx;
+        height:28upx;
         display: block;
-        margin-top: 6upx;
+        margin-top:6upx;
         margin-left: -18upx;
-        margin-right: 10upx;
+        margin-right:10upx;
       }
     }
   }

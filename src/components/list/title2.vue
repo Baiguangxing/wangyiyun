@@ -1,39 +1,27 @@
 <template>
   <view>
-    <view class="title">
-      <view class="icon">
-        <uni-icons type="refreshempty" size="25"></uni-icons>
-      </view>
-      <view class="txt">
-        <view class="item">{{ title }}</view>
-        <view>的专属歌单</view>
-      </view>
-    </view>
-    <view>
+    <view style="font-weight: bold">{{ title }}</view>
+
+    <scroll-view class="scroll_box" :scroll-x="true">
       <view class="list">
-        <view
-          class="box"
-          v-for="(item, index) in list"
-          :key="index"
-          @click="btn(item)"
-        >
-          <view class="play" v-if="item.playCount >= 100000000">
-            <view><image src="../../static/image/sj.png" /></view>
+        <view class="box" v-for="(item, index) in list" :key="index" @click="btn(item)">
+           <view class="play" v-if="item.playCount >= 100000000">
+            <view><image src="../../static/image/sj.png"/></view>
             <view>{{ Math.floor(item.playCount / 100000000) }}亿</view>
           </view>
           <view class="play" v-else-if="item.playCount >= 10000">
-            <view><image src="../../static/image/sj.png" /></view>
+            <view><image src="../../static/image/sj.png"/></view>
             <view>{{ Math.floor(item.playCount / 10000) }}万</view>
           </view>
           <view class="play" v-else>
-            <view><image src="../../static/image/sj.png" /></view>
+            <view><image src="../../static/image/sj.png"/></view>
             <view>{{ item.playCount }}</view>
           </view>
           <image class="img" :src="item.picUrl" />
           <text>{{ item.name }}</text>
         </view>
       </view>
-    </view>
+    </scroll-view>
   </view>
 </template>
 
@@ -51,6 +39,7 @@ export default {
   computed: {},
   methods: {
     btn(item) {
+      console.log(item.id)
       get("/playlist/detail", { id: item.id }).then((res) => {
         console.log(res[1].data.playlist);
         this.$store.state.playlistDat = res[1].data.playlist;
@@ -66,33 +55,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-  display: flex;
-  .icon {
-    margin-top: -6upx;
-  }
-  .txt {
-    font-weight: bold;
-    font-size: 36upx;
-    display: flex;
-    .item {
-      width: 350upx;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      -o-text-overflow: ellipsis;
-    }
-  }
+.iocn {
+  line-height: 56upx;
+  font-weight: 300;
 }
 
 .list {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
+  margin-top: 30upx;
   .box {
     position: relative;
-    width: 33.33%;
-    margin-top: 30upx;
+    margin-right: 25upx;
     text {
       margin-top: 10upx;
       line-height: 40upx;
@@ -106,8 +80,8 @@ export default {
     }
     .img {
       display: block;
-      width: 210upx;
-      height: 210upx;
+      width: 200upx;
+      height: 200upx;
       border-radius: 20upx;
     }
     .play {
@@ -122,13 +96,13 @@ export default {
       border-radius: 30upx;
       color: white;
       transform: scale(0.85);
-      image {
-        width: 28upx;
-        height: 28upx;
+      image{
+        width:28upx;
+        height:28upx;
         display: block;
-        margin-top: 6upx;
+        margin-top:6upx;
         margin-left: -18upx;
-        margin-right: 10upx;
+        margin-right:10upx;
       }
     }
   }

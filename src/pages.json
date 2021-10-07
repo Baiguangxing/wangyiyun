@@ -5,7 +5,8 @@
 			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
 		}
 	},
-	"pages": [{
+	"pages": [
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "首页"
@@ -40,8 +41,17 @@
 			"style": {
 				"navigationBarTitleText": "登录页面"
 			}
+		},{
+			"path":"pages/playlist/playlist",
+			"style":{
+				"navigationBarTitleText":"歌单"
+			}
+		},{
+			"path":"pages/details/details",
+			"style":{
+				"navigationBarTitleText":"详情"
+			}
 		}
-
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -49,7 +59,8 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
 		"app-plus": {
-			"titleNView": false
+			"titleNView": false,
+			"scrollIndicato":"none"
 		}
 	},
 	"tabBar": {
@@ -65,22 +76,22 @@
 		}, {
 			"pagePath": "pages/radio/radio",
 			"iconPath": "static/image/tab2.png",
-			"selectedIconPath": "static/image/tab2.png",
+			"selectedIconPath": "static/image/tab_r2.png",
 			"text": "播客"
 		}, {
 			"pagePath": "pages/my/my",
 			"iconPath": "static/image/tab3.png",
-			"selectedIconPath": "static/image/tab3.png",
+			"selectedIconPath": "static/image/tab_r3.png",
 			"text": "我的"
 		}, {
 			"pagePath": "pages/concern/concern",
 			"iconPath": "static/image/tab4.png",
-			"selectedIconPath": "static/image/tab4.png",
+			"selectedIconPath": "static/image/tab_r4.png",
 			"text": "关注"
 		}, {
 			"pagePath": "pages/gather/gather",
 			"iconPath": "static/image/tab5.png",
-			"selectedIconPath": "static/image/tab5.png",
+			"selectedIconPath": "static/image/tab_r5.png",
 			"text": "云村"
 		}]
 	}
