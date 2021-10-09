@@ -235,6 +235,7 @@ export default {
 
   .val {
     font-weight: bold;
+    font-size: 34upx;
   }
 
   .more {
@@ -269,7 +270,7 @@ swiper-item {
     margin: 0 auto;
     margin-top: 40upx;
     .val {
-      font-size: 36upx;
+      font-size: 34upx;
       font-weight: bold;
     }
   }

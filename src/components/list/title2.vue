@@ -1,6 +1,6 @@
 <template>
   <view>
-    <view style="font-weight: bold">{{ title }}</view>
+    <view style="font-weight: bold;font-size:34upx">{{ title }}</view>
 
     <scroll-view class="scroll_box" :scroll-x="true">
       <view class="list">

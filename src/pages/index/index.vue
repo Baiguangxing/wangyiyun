@@ -125,12 +125,16 @@ export default {
       },
     });
 
-    get("/personalized", {}).then((res) => {
-      //推荐歌单列表
+    get("/personalized", {}).then((res) => {//推荐歌单列表
       // console.log(res[1].data.result);
       let data = res[1].data.result;
       let data1 = []; //前六条数据
-      for (let i = 0; i < 6; i++) {
+      //0-5     0*6   1*6-1
+      //6-11    1*6   2*6-1
+      //12-17    2*6  3*6-1
+      //18-23    3*6  4*6-1
+      let sjNum = this.$store.state.sjNum;
+      for (let i = 6*(sjNum-1); i < 6*sjNum; i++) {
         data1.push(data[i]);
       }
       this.data1 = data1;
@@ -176,11 +180,13 @@ export default {
 }
 
 .toptabTitle {
-  // border:1px solid red;
   width: 100%;
   text-align: left;
   margin-left: 30upx;
-  line-height: 100upx;
+  line-height: 50upx;
+  font-size:32upx;
+  font-weight: bold;
+  margin-top:20upx;
 }
 
 .tab_row {

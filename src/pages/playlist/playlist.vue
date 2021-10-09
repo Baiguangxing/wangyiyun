@@ -51,7 +51,10 @@
         <view>
           <uni-icons type="shop" size="20"></uni-icons>
         </view>
-        <view>{{ playlist.subscribedCount }}</view>
+        <view v-if="playlist.subscribedCount>=10000">
+          {{ Math.floor(playlist.subscribedCount/10000) }}万
+        </view>
+        <view v-else>{{ playlist.subscribedCount }}</view>
       </view>
       <view class="solid">|</view>
       <view>
@@ -71,7 +74,7 @@
 
     <view class="play">
       <view class="left">
-        <view class="img">
+        <view class="img" @click="playAll">
           <image src="../../static/image/bf.png" />
         </view>
         <view class="text">播放全部</view>
@@ -138,16 +141,17 @@
     <view class="footer" @click="detailsBtn">
       <view class="left">
         <view class="img">
-          <image src="../../static/image/r.jpg" />
+          <image :src="url" />
         </view>
-        <view class="title">野马 - <text>王然</text></view>
+        <view class="title">{{name}} - <text>{{author}}</text></view>
       </view>
       <view class="right">
-        <view class="play">
-          <image src="../../static/image/r.jpg" />
+        <view class="play" @click.stop="playBan">
+          <image v-if="playIcon" src="../../static/image/bf_h2.png" />
+          <image v-else src="../../static/image/bf_h1.png" />
         </view>
         <view class="more">
-          <uni-icons type="list" size="20"></uni-icons>
+          <uni-icons type="list" size="25"></uni-icons>
         </view>
       </view>
     </view>
@@ -160,17 +164,36 @@ import { get } from "../../request.js";
 export default {
   data() {
     return {
+      playIcon:false,
       playlist: {
         creator: { avatarUrl: require("../../static/image/r.jpg") },
       },
       trackIds: [],
       songlist: [],
+      url: require("../../static/image/r.jpg"),
+      name:"选择播放音乐",
+      author:""
     };
   },
   components: {
     Title,
   },
   methods: {
+    bfHandle(url){//播放处理事件
+      this.$store.state.creatA.src = url; //播放地址
+      this.$store.state.creatA.autoplay = true;//自动播放
+      this.$store.state.creatA.onPlay(res => {
+        console.log("开始播放");
+        this.playIcon = true;
+      })
+      this.$store.state.creatA.onEnded(res => {
+        console.log("播放结束")
+        this.playIcon = false;
+        //播放下一首
+        this.$store.state.index +=1;//下一首
+        this.playAll()
+      })
+    },
     btn(id) {
       console.log(id)
       // console.log(this.$store.state.songlistIds)
@@ -189,7 +212,43 @@ export default {
       uni.navigateTo({
         url:"/pages/details/details"
       })
+    },
+    playBan(){//播放暂停
+      this.playIcon = !this.playIcon;
+      if(this.playIcon){
+        this.$store.state.play() //播放
+      }else{
+        this.$store.state.pause() //暂停
+      }
+    },
+    playAll(){//播放全部
+      // console.log("播放全部")
+      let songlistIds = this.$store.state.trackIds;
+      let index = this.$store.state.index;
+			get('/check/music', { id: songlistIds[index].id }).then((res) => {//歌曲是否有权
+				if (res[1].data.success) {
+          get('/song/detail', { ids: songlistIds[index].id }).then((res) => {//获取歌曲详情
+            console.log(res[1].data, '歌曲详情');
+            this.url = res[1].data.songs[0].al.picUrl;//歌曲图片
+            this.name = res[1].data.songs[0].al.name;//歌曲名称
+            this.author = res[1].data.songs[0].ar[0].name;//作者
+						// this.songs_xq = res[1].data.songs;
+						// this.endDate = formatTime(Math.floor(this.songs_xq[0].dt / 1000));
+          });
+          
+					get('/song/url', { id: songlistIds[index].id }).then((res) => {//获取音乐url
+            let url = res[1].data.data[0].url;
+            console.log("监听当前序号:"+this.$store.state.index)
+						this.bfHandle(url);
+					});
+				} else {
+					console.log('暂无版权');
+					this.$store.state.index +=1;//下一首
+          this.playAll()
+				}
+			});
     }
+    
   },
   onLoad() {
     // console.log("onLoad");
@@ -301,22 +360,23 @@ export default {
 
 .number {
   display: flex;
-  border: 1px solid #d8d8d8;
+  //border: 1px solid #d8d8d8;
   width: 560upx;
-  height: 80upx;
-  line-height: 80upx;
+  height: 70upx;
+  line-height: 70upx;
   font-size: 32upx;
   margin: 0 auto;
   padding: 0 30upx;
   border-radius: 50upx;
   margin-top: 50upx;
+  box-shadow: 0 4upx 20upx  #d8d8d8;
 
   view {
     display: flex;
 
     view {
-      margin-left: 15upx;
-      line-height: 80upx;
+      margin-left: 20upx;
+      line-height: 70upx;
     }
   }
 
@@ -324,9 +384,9 @@ export default {
     margin: 0 20upx;
     margin-left: 35upx;
     font-size: 46upx;
-    line-height: 80upx;
+    line-height: 70upx;
     margin-top: -5upx;
-    color: #b9b9b9;
+    color: #dadada;
     font-weight: 100;
   }
 }
@@ -489,7 +549,7 @@ export default {
   justify-content: space-between;
   padding: 0 30upx;
   box-sizing: border-box;
-  border-top:1upx solid #dddddd;
+  border-top:1upx solid #f0f0f0;
 
   .left {
     display: flex;
@@ -508,7 +568,12 @@ export default {
     }
 
     .title {
-      line-height: 100upx;
+      line-height: 85upx;
+      width:400upx;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow:ellipsis;
+      -o-text-overflow: ellipsis;
       text {
         font-size: 30upx;
         transform: scale(0.8);
@@ -520,21 +585,26 @@ export default {
 
   .right {
     display: flex;
-    line-height: 100upx;
+    //line-height: 90upx;
     .play {
       width: 50upx;
       height: 50upx;
       border-radius: 50%;
       overflow: hidden;
-      margin-top: 20upx;
+      margin-top: 15upx;
       margin-right: 50upx;
+      border:1px solid #c6c6c6;
+      padding-left: 2upx;
 
       image {
-        width: 100%;
-        height: 100%;
+        width: 25upx;
+        height: 25upx;
+        margin:0 auto;
+        margin-top:15upx;
       }
     }
-    .more {
+    .more{
+      margin-top:15upx;
     }
   }
 }

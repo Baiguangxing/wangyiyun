@@ -51,9 +51,9 @@ export default {
   float: left;
   color: #969696;
   font-weight: bold;
-  font-size: 32upx;
+  font-size: 30upx;
   margin: auto;
-  padding: 0 30upx;
+  padding: 0 25upx;
   text-align: center;
 }
 
@@ -62,11 +62,10 @@ export default {
 }
 
 .active .swiper-tab-line {
-	// border:1px solid red;
   border-bottom: 7upx solid #ff6161;
   width: 70upx;
   margin: auto;
-  border-top: 10upx solid #ff6161;
+  border-top: 8upx solid #ff6161;
   border-radius: 30%;
   margin-top: -36upx;
 }

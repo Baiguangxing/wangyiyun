@@ -1,6 +1,6 @@
 <template>
   <view>
-    <view style="font-weight: bold">{{ title }}</view>
+    <view style="font-weight: bold;font-size:34upx">{{ title }}</view>
     <view>
       <view class="list">
         <view class="box" v-for="(item, index) in list" :key="index" @click="btn(item)">

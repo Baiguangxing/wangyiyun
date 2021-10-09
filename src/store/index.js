@@ -11,9 +11,10 @@ const store = new Vuex.Store({
 		playlistDat: {},
 		trackIds: [],
 		songlistIds: [],
-    index: 0,
-    
-    creatA:innerAudioContext,
+		index: 0,
+		sjNum:1,
+
+		creatA: innerAudioContext,
 	},
 	mutations: {},
 });

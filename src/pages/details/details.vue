@@ -42,8 +42,13 @@
 				</view>
 			</view>
 
-			<scroll-view :scroll-with-animation="true" scroll-y="true" :scroll-top="scrollTop" class="box2" v-else>
-				<view class="swx">死亡线</view>
+			<scroll-view
+				:scroll-with-animation="true"
+				scroll-y="true"
+				:scroll-top="scrollTop"
+				class="box2"
+				v-else
+			>
 				<view class="str_box">
 					<view
 						:class="scroNum == index ? 'bgx' : 'str'"
@@ -100,10 +105,47 @@
 				<view @click="xysBtn">
 					<image src="../../static/image/xys.png" />
 				</view>
-				<view>
+				<view @click="open">
 					<image src="../../static/image/lb.png" />
 				</view>
 			</view>
+			<uni-popup ref="popup" type="bottom">
+				<view class="tc_bg">
+					<swiper class="swiper">
+						<swiper-item>
+							<view class="item1">A</view>
+						</swiper-item>
+						<swiper-item>
+							<view class="item2">B</view>
+						</swiper-item>
+						<swiper-item>
+							<view class="item3">
+								<view class="item_row1">
+									当前播放
+									<text> (49)</text>
+								</view>
+								<view class="item_row2">
+									<view class="left">
+										<view class="left_row1"><image src="../../static/image/xh_h.png"/></view>
+										<view class="left_row2">列表循环</view>
+									</view>
+									<view class="right">
+										<view calss="right_row1">
+											<image src="../../static/image/sc_h1.png"/>
+											<text>收藏全部</text>
+										</view>
+										<view calss="right_row2">|</view>
+										<view calss="right_row3">
+											<image src="../../static/image/sc_h.png"/>
+										</view>
+									</view>
+								</view>
+								<view class="item_row3">歌曲列表</view>
+							</view>
+						</swiper-item>
+					</swiper>
+				</view>
+			</uni-popup>
 		</view>
 	</view>
 </template>
@@ -160,16 +202,16 @@ export default {
 								// _this.scroNum = i;
 								// // console.log(i+"-------------"+_this.scrollTop)
 								// console.log(data, i);
-                // console.log(_this.str_arr, i);
-                console.log(data[i][0],"所有时间")
-                console.log(_this.date,"当前时间")
-                console.log(data[i][0] === _this.date)
-                console.log(i,"当前序号")
-                _this.scroNum = i;
-                _this.scrollTop = 50*i;
-                console.log(_this.scroNum,"赋值成功？")
-                console.log(_this.gcsjArr)
-                console.log("---------------------")
+								// console.log(_this.str_arr, i);
+								console.log(data[i][0], '所有时间');
+								console.log(_this.date, '当前时间');
+								console.log(data[i][0] === _this.date);
+								console.log(i, '当前序号');
+								_this.scroNum = i;
+								_this.scrollTop = 50 * i;
+								console.log(_this.scroNum, '赋值成功？');
+								console.log(_this.gcsjArr);
+								console.log('---------------------');
 							}
 						}
 					}, 1000);
@@ -192,20 +234,6 @@ export default {
 
 			this.$store.state.creatA.onTimeUpdate((res) => {
 				// console.log('音频播放进度更新事件------------------');
-				// let data = this.gcsjArr;
-				// let len = data.length;
-				// console.log(data)
-				// for(let i=0;i<len;i++){
-				//   if(data[i][0] == this.date & data[i][1]){
-				//     // this.scrollTop = 80*i;
-				//     console.log(i+"-----------------")
-				//   }else{
-				//     console.log(data[i][0])
-				//     console.log(this.date)
-				//     console.log(false)
-				//     console.log("------------------------")
-				//   }
-				// }
 			});
 
 			this.$store.state.creatA.onWaiting((res) => {
@@ -236,16 +264,18 @@ export default {
 					console.log('暂无歌词');
 				} else {
 					//获取歌词 --> 成功
-          let data = res[1].data.lrc.lyric;
-          data = data.replace(/\s*/g,"");
-          console.log(data,"歌词完整");
-					let arr = data.split(/\[[0-9][0-9]:[0-9][0-9].[0-9][0-9]\]|\[[0-9][0-9]:[0-9][0-9].[0-9][0-9][0-9]\]/); //[00:17.02]
+					let data = res[1].data.lrc.lyric;
+					//   data = data.replace(/\s*/g,"");
+					console.log(data, '歌词完整');
+					let arr = data.split(
+						/\[[0-9][0-9]:[0-9][0-9].[0-9][0-9]\]|\[[0-9][0-9]:[0-9][0-9].[0-9][0-9][0-9]\]/,
+					); //[00:17.02]
 					arr.shift();
 					this.str_arr = arr;
-					console.log(arr,"歌词");
+					console.log(arr, '歌词');
 					//获取时间
 					var date = data.match(/[0-9][0-9]:[0-9][0-9]/g);
-					console.log(date,"时间");
+					console.log(date, '时间');
 					let gcsjArr = [];
 
 					for (let i = 0; i < date.length; i++) {
@@ -307,16 +337,16 @@ export default {
 								// _this.scroNum = i;
 								// // console.log(i+"-------------"+_this.scrollTop)
 								// console.log(data, i);
-                // console.log(_this.str_arr, i);
-               console.log(data[i][0],"所有时间")
-                console.log(_this.date,"当前时间")
-                console.log(data[i][0] === _this.date)
-                console.log(i,"当前序号")
-                _this.scroNum = i;
-                _this.scrollTop = 50*i;
-                console.log(_this.scroNum,"赋值成功？")
-                console.log(_this.gcsjArr)
-                console.log("---------------------")
+								// console.log(_this.str_arr, i);
+								console.log(data[i][0], '所有时间');
+								console.log(_this.date, '当前时间');
+								console.log(data[i][0] === _this.date);
+								console.log(i, '当前序号');
+								_this.scroNum = i;
+								_this.scrollTop = 50 * i;
+								console.log(_this.scroNum, '赋值成功？');
+								console.log(_this.gcsjArr);
+								console.log('---------------------');
 							}
 						}
 					}, 1000);
@@ -353,6 +383,7 @@ export default {
 		},
 		//下一首
 		xysBtn() {
+			// this.timer= null;
 			this.second = 0;
 			this.date = '00:00';
 			let songlistIds = this.$store.state.trackIds;
@@ -374,6 +405,10 @@ export default {
 			}
 			this.$store.state.index = id;
 			this.playHandle(id);
+		},
+		//弹出框
+		open() {
+			this.$refs.popup.open();
 		},
 	},
 	onLoad() {
@@ -415,13 +450,6 @@ function formatDate(value) {
 </script>
 
 <style lang="scss">
-.swx {
-	background-color: #00000075;
-	width: 100%;
-	position: fixed;
-	top: 550upx;
-}
-
 .main {
 	background-color: #788497;
 	height: 100vh;
@@ -487,7 +515,7 @@ function formatDate(value) {
 					display: block;
 					border: 10upx solid #ab0130;
 					position: absolute;
-					top: -16upx;
+					top: -15upx;
 					left: 180upx;
 					border-color: transparent;
 					border-bottom-color: #ab0130;
@@ -577,21 +605,20 @@ function formatDate(value) {
 	}
 
 	.box2 {
-		border: 1px solid red;
+		// border: 1px solid red;
 		height: 927upx;
 		position: relative;
-		background-color: red;
 		.str_box {
 			padding-top: 370upx;
 			padding-bottom: 450upx;
 			.str {
 				text-align: center;
-				color: white;
+				color: #c4c4c4;
 				font-size: 32upx;
 				margin-top: 60upx;
 			}
 			.bgx {
-				color: #03a9f4;
+				color: white;
 				text-align: center;
 				font-size: 32upx;
 				margin-top: 60upx;
@@ -615,7 +642,6 @@ function formatDate(value) {
 
 		image {
 			width: 100%;
-			// height:100%;
 			height: 100%;
 		}
 	}
@@ -649,11 +675,79 @@ function formatDate(value) {
 	.row3 {
 		display: flex;
 		justify-content: space-around;
-		margin-top: 40upx;
+		margin-top: 30upx;
 
 		image {
 			width: 50upx;
 			height: 50upx;
+		}
+	}
+}
+
+.tc_bg{
+	border:1px solid red;
+	width:100%;
+	height:800upx;
+	.swiper{
+		background-color: red;
+		height:800upx;
+		width:100%;
+
+		.item1{
+			
+		}
+		.item2{
+			
+		}
+		.item3{
+			background-color: white;
+			.item_row1{
+				font-size: 32upx;
+				text{
+					font-size: 20upx;
+					color:#858585;
+				}
+			}
+			.item_row2{
+				display: flex;
+				justify-content: space-between;
+				border:1px solid red;
+				.left{
+					display: flex;
+					font-size: 20upx;
+					.left_row1{
+						image{
+							width:35upx;
+							height:35upx;
+						}
+					}
+					.left_row2{
+						margin-left:10upx;
+					}
+				}
+				.right{
+					font-size: 20upx;
+					display: flex;
+					justify-content: space-between;
+					.right_row1{
+						border:1px solid red;
+						background-color: red;
+						image{
+							width:30upx;
+							height:30upx;
+						}
+					}
+					.right_row2{
+						
+					}
+					.right_row3{
+						image{
+							width:30upx;
+							height:30upx;
+						}
+					}
+				}
+			}
 		}
 	}
 }
