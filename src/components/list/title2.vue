@@ -63,13 +63,13 @@ export default {
 .list {
   display: flex;
   justify-content: space-between;
-  margin-top: 30upx;
+  margin-top: 20upx;
   .box {
     position: relative;
     margin-right: 25upx;
     text {
-      margin-top: 10upx;
-      line-height: 40upx;
+      margin-top: 8upx;
+      line-height: 38upx;
       display: block;
       font-size: 26upx;
       overflow: hidden;

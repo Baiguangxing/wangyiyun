@@ -13,6 +13,7 @@ const store = new Vuex.Store({
 		songlistIds: [],
 		index: 0,
 		sjNum:1,
+		songlist:[],
 
 		creatA: innerAudioContext,
 	},

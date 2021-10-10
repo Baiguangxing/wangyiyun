@@ -90,7 +90,6 @@
       </view>
     </view>
 
-    <!-- @click="btn(item.songs[0].al.id)" -->
     <view class="box">
       <view
         class="list"
@@ -260,6 +259,7 @@ export default {
       get("/song/detail", { ids:this.trackIds[i].id }).then((res) => {
         this.songlist.push(res[1].data);
         this.$store.state.songlistIds.push(res[1].data.songs[0].al.id)
+        this.$store.state.songlist = this.songlist;
       });
     }
   },
@@ -361,10 +361,10 @@ export default {
 .number {
   display: flex;
   //border: 1px solid #d8d8d8;
-  width: 560upx;
-  height: 70upx;
-  line-height: 70upx;
-  font-size: 32upx;
+  width: 500upx;
+  height: 80upx;
+  line-height: 80upx;
+  font-size: 30upx;
   margin: 0 auto;
   padding: 0 30upx;
   border-radius: 50upx;
@@ -376,7 +376,7 @@ export default {
 
     view {
       margin-left: 20upx;
-      line-height: 70upx;
+      line-height: 80upx;
     }
   }
 
@@ -384,7 +384,7 @@ export default {
     margin: 0 20upx;
     margin-left: 35upx;
     font-size: 46upx;
-    line-height: 70upx;
+    line-height: 80upx;
     margin-top: -5upx;
     color: #dadada;
     font-weight: 100;
@@ -470,14 +470,14 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: 38upx;
-  margin-bottom: 30upx;
+  margin-bottom: 20upx;
 
   .left {
     display: flex;
     .num {
       width: 60upx;
       font-size: 32upx;
-      line-height: 100upx;
+      line-height: 85upx;
       color: #686868;
     }
     .info {
