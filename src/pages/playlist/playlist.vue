@@ -47,28 +47,28 @@
     </view>
 
     <view class="number">
-      <view>
-        <view>
+      <view class="num_box">
+        <view class="num_item1">
           <uni-icons type="shop" size="20"></uni-icons>
         </view>
-        <view v-if="playlist.subscribedCount>=10000">
+        <view class="num_item2" v-if="playlist.subscribedCount>=10000">
           {{ Math.floor(playlist.subscribedCount/10000) }}万
         </view>
-        <view v-else>{{ playlist.subscribedCount }}</view>
+        <view class="num_item2" v-else>{{ playlist.subscribedCount }}</view>
       </view>
       <view class="solid">|</view>
-      <view>
-        <view>
+      <view class="num_box">
+        <view class="num_item1">
           <uni-icons type="chat" size="20"></uni-icons>
         </view>
-        <view>{{ playlist.commentCount }}</view>
+        <view class="num_item2">{{ playlist.commentCount }}</view>
       </view>
       <view class="solid">|</view>
-      <view>
-        <view>
+      <view class="num_box">
+        <view class="num_item1">
           <uni-icons type="paperplane" size="20"></uni-icons>
         </view>
-        <view>{{ playlist.shareCount }}</view>
+        <view class="num_item2">{{ playlist.shareCount }}</view>
       </view>
     </view>
 
@@ -215,9 +215,9 @@ export default {
     playBan(){//播放暂停
       this.playIcon = !this.playIcon;
       if(this.playIcon){
-        this.$store.state.play() //播放
+        this.$store.state.creatA.play() //播放
       }else{
-        this.$store.state.pause() //暂停
+        this.$store.state.creatA.pause() //暂停
       }
     },
     playAll(){//播放全部
@@ -360,7 +360,6 @@ export default {
 
 .number {
   display: flex;
-  //border: 1px solid #d8d8d8;
   width: 500upx;
   height: 80upx;
   line-height: 80upx;
@@ -370,19 +369,24 @@ export default {
   border-radius: 50upx;
   margin-top: 50upx;
   box-shadow: 0 4upx 20upx  #d8d8d8;
+  // border:1px solid red;
 
-  view {
+  .num_box{
+    // border:1px solid red;
     display: flex;
+    width:210upx;
+    .num_item1{
+      margin-right:10upx;
+    }
 
-    view {
-      margin-left: 20upx;
-      line-height: 80upx;
+    .num_item2{
+
     }
   }
 
   .solid {
     margin: 0 20upx;
-    margin-left: 35upx;
+    margin-left: 20upx;
     font-size: 46upx;
     line-height: 80upx;
     margin-top: -5upx;
@@ -568,7 +572,7 @@ export default {
     }
 
     .title {
-      line-height: 85upx;
+      line-height: 75upx;
       width:400upx;
       overflow: hidden;
       white-space: nowrap;

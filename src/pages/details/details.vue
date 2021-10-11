@@ -23,7 +23,7 @@
             </view>
           </view>
         </view>
-        <view>
+        <view style="line-height:70upx">
           <uni-icons type="paperplane" size="25" color="white"></uni-icons>
         </view>
       </view>
